@@ -13,7 +13,6 @@ const ImageUploadButton = () => {
       const formData = new FormData();
       formData.append('image', selectedImage);
       const token =  localStorage.getItem("token")   
-      // Replace 'YOUR_API_ENDPOINT' with your actual API endpoint
       fetch('https://minpro-blog.purwadhikabootcamp.com/api/profile/single-uploaded', {
         method: 'POST',
         headers: {
@@ -23,11 +22,9 @@ const ImageUploadButton = () => {
       })
         .then(response => response.json())
         .then(data => {
-          // Handle the response from the server
           console.log('Response:', data);
         })
         .catch(error => {
-          // Handle any errors
           console.error('Error:', error);
         });
     }

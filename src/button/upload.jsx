@@ -13,18 +13,15 @@ const ImageUploadButton = () => {
       const formData = new FormData();
       formData.append('image', selectedImage);
 
-      // Replace 'YOUR_API_ENDPOINT' with your actual API endpoint
       fetch('YOUR_API_ENDPOINT', {
         method: 'POST',
         body: formData
       })
         .then(response => response.json())
         .then(data => {
-          // Handle the response from the server
-          console.log('Response:', data);
+                 console.log('Response:', data);
         })
         .catch(error => {
-          // Handle any errors
           console.error('Error:', error);
         });
     }

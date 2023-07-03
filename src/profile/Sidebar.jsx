@@ -8,12 +8,10 @@ const ProfileSidebar = () => {
   return (
     <div className="h-screen">
       <div className=" bg-gray-200 p-4">
-        {/* Sidebar content */}
-        {/* You can add your desired content here */}
         <div className="h-screen">
           <div className="flex items-center justify-center mb-4 h-1/3">
             <img
-              src={`https://minpro-blog.purwadhikabootcamp.com/${imgProf}`} // Replace with the URL or path of the user avatar image
+              src={`https://minpro-blog.purwadhikabootcamp.com/${imgProf}`}
               alt="User Avatar"
               className="w-4/5 h-full mr-4 border border-gray-500"
             />
@@ -22,7 +20,7 @@ const ProfileSidebar = () => {
             <AvatarUploader/>
           </div>
           <div>
-            <h1 className="text-2xl font-bold">User Name</h1> {/* Replace with the user's name */}
+            <h1 className="text-2xl font-bold">User Name</h1>
           </div>
           <div>
             <ul className="list-disc ml-8">

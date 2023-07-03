@@ -17,36 +17,25 @@ const ChangeEmailForm = () => {
   const handleSubmit = (values) => {
     const { currentEmail, newEmail } = values;
     const url = window.location.hostname
-    // Prepare the data to be sent
     const data = {
       currentEmail,
       newEmail,
       FE_URL: url,
     };
 
-    // Get the token from wherever you have stored it
     const token =  localStorage.getItem("token");
 
-    // Set the Authorization header with the Bearer token
     const headers = {
       Authorization: `Bearer ${token}`,
           };
-
-    // Send a PATCH request using Axios with the headers
     axios
       .patch('https://minpro-blog.purwadhikabootcamp.com/api/auth/changeEmail', data, { headers })
       .then((response) => {
-        // Handle the response
-        if (response.status === 200) {
-          // Email changed successfully
-          // You can show a success message or redirect the user to a different page
-        } else {
-          // Error occurred while changing the email
-          // You can handle the error and show an appropriate message to the user
-        }
+           if (response.status === 200) {
+          } else {
+         }
       })
       .catch((error) => {
-        // Handle any network or server errors
         console.error('Error:', error);
       });
   };

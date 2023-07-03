@@ -1,5 +1,4 @@
-// src/components/BlogPage.js
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const LikedPost = () => {
   const [articles, setArticles] = useState([]);

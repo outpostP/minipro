@@ -23,37 +23,29 @@ const ChangePhoneForm = () => {
   const handleSubmit = (values) => {
     const { currentPhoneNumber, newPhoneNumber } = values;
 
-    // Prepare the data to be sent
     const data = {
       currentPhoneNumber,
       newPhoneNumber,
       FE_URL: url,
     };
 
-    // Get the token from wherever you have stored it
     const token =  localStorage.getItem("token");
 
-    // Set the Authorization header with the Bearer token
     const headers = {
       Authorization: `Bearer ${token}`,
       
     };
 
-    // Send a PATCH request using Axios with the headers
     axios
       .patch('https://minpro-blog.purwadhikabootcamp.com/api/auth/changePhone', data, { headers })
       .then((response) => {
-        // Handle the response
         if (response.status === 200) {
-          // Phone number changed successfully
-          // You can show a success message or redirect the user to a different page
+         console.log('success 200')
         } else {
-          // Error occurred while changing the phone number
-          // You can handle the error and show an appropriate message to the user
+          console.log('lol')
         }
       })
       .catch((error) => {
-        // Handle any network or server errors
         console.error('Error:', error);
       });
   };

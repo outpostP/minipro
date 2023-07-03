@@ -31,18 +31,15 @@ const VerifyButton = () => {
       });
 
       if (response.ok) {
-        // Request successful, handle the response
         setVerificationSent(true);
         setTimeout(() => {
           setVerificationSent(false);
-          window.location.href = '/'; // Redirect to the root path
+          window.location.href = '/'; 
         }, 4000);
       } else {
-        // Request failed, handle the error
         setError('Verification failed. Please try again.');
       }
     } catch (error) {
-      // Handle any other errors
       setError('An error occurred. Please try again later.');
     }
   };

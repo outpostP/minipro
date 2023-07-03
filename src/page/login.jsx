@@ -34,7 +34,6 @@ const LoginPage = () => {
         password: values.password,
       };
 
-      // Determine which field was used and assign the value accordingly
       if (values.loginIdentifier.includes('@')) {
         payload.email = values.loginIdentifier;
       } else if (/^\d+$/.test(values.loginIdentifier)) {

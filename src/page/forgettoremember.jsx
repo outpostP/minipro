@@ -4,21 +4,17 @@ import * as Yup from 'yup';
 import axios from 'axios';
 
 const ResetPasswordComponent = () => {
-  // Validation schema using Yup
   const validationSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Email is required'),
   });
 
-  // Function to handle form submission
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
-      // Send PUT request to the API
       await axios.put('https://minpro-blog.purwadhikabootcamp.com/api/auth/forgotPass', {
         email: values.email,
       });
 
-      // Reset the form after successful submission
-      resetForm();
+            resetForm();
       alert('Password reset request has been sent successfully.');
     } catch (error) {
       console.error('An error occurred:', error);

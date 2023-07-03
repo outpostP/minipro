@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 
 function CarouselReal() {
-  const [cardData, setCardData] = useState(null); // Set initial state to 
+  const [cardData, setCardData] = useState(null); 
   
 
   useEffect(() => {

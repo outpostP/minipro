@@ -41,19 +41,15 @@ const PasswordResetForm = () => {
         },
       });
   
-      console.log(response); // Log the response object for inspection
-  
+      console.log(response);
       if (response.status === 200) {
-        // Password reset successful
         resetForm();
         alert('Password reset successful!');
       } else {
-        // Password reset failed
         throw new Error(response.data.message);
       }
     } catch (error) {
       console.error('Password reset failed:', error.message);
-      // Handle error, display error message to the user, etc.
     }
   };
 

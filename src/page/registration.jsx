@@ -60,21 +60,18 @@ const Register = () => {
       console.log(response.data);
   
       if (response.status === 200) {
-        // Registration succeeded
         setMessage('Thank you for registering. Please check your email to verify your account.');
       } else {
-        // Registration failed
+
         setMessage('Registration failed. Please try again.');
       }
     } catch (error) {
-      // Handle any errors that occurred during the API call
+
       if (error.response && error.response.data) {
-        // Server returned validation errors
         setErrors(error.response.data.errors);
         console.log(error)
         setMessage('Server returned validation errors');
       } else {
-        // Other error occurred
         setMessage('An error occurred. Please try again later.');
       }
     } finally {
