@@ -40,10 +40,12 @@ export const AuthReducer = createSlice({
         },
         loginSuccess: (state, action) => {
             state.login = true;
+            
         },
         logoutSuccess: (state) => {
             state.login = false;
             localStorage.removeItem("token")
+            localStorage.removeItem("id")
         },
         keepLoginSuccess: (state) => {
             state.login = true;
@@ -58,7 +60,7 @@ export const keepLogin = () => {
         if (token) {
             const res = await axios.get("https://minpro-blog.purwadhikabootcamp.com/api/auth/", {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    "Authorization": `Bearer ${token}`,
                 }
             });
             dispatch(setUser(res.data));

@@ -10,7 +10,7 @@ const BlogComponent = () => {
   const [currentBlogPage, setCurrentBlogPage] = useState(1);
   const [visiblePageButtons, setVisiblePageButtons] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-
+  
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -30,36 +30,33 @@ const BlogComponent = () => {
     const fetchData = async () => {
       try {
         let url = '';
-
+  
         if (categoryId === 0) {
-          url = `https://minpro-blog.purwadhikabootcamp.com/api/blog/?page=${page}`;
+          url = `https://minpro-blog.purwadhikabootcamp.com/api/blog?search=${searchQuery}&page=${currentBlogPage}`;
         } else if (categoryId === -1) {
-          url =
-            `https://minpro-blog.purwadhikabootcamp.com/api/blog/pagFav?page=${page}&orderBy=total_fav&sort=DESC&size=10`;
+          url = `https://minpro-blog.purwadhikabootcamp.com/api/blog/pagFav?&search=${searchQuery}&page=${currentBlogPage}`;
         } else {
-          url = `https://minpro-blog.purwadhikabootcamp.com/api/blog/?id_cat=${categoryId}&page=${page}`;
+          url = `https://minpro-blog.purwadhikabootcamp.com/api/blog/?id_cat=${categoryId}&search=${searchQuery}&page=${currentBlogPage}`;
         }
-
+  
         const response = await fetch(url);
         const data = await response.json();
-
+  
         let filteredPosts = data.result;
         if (searchQuery !== '') {
           filteredPosts = filteredPosts.filter((post) =>
             post.title.toLowerCase().includes(searchQuery.toLowerCase())
           );
         }
-
         setBlogPosts(filteredPosts);
         setTotalPages(data.page);
-        setCurrentBlogPage(data.blogPage);
       } catch (error) {
         console.log(error);
       }
     };
-
+  
     fetchData();
-  }, [categoryId, page, searchQuery]);
+  }, [categoryId, currentBlogPage, searchQuery]);
 
   useEffect(() => {
     const calculateVisiblePageButtons = () => {
@@ -67,32 +64,32 @@ const BlogComponent = () => {
       const halfTotalPagesToShow = Math.floor(totalPagesToShow / 2);
       let startPage = currentBlogPage - halfTotalPagesToShow;
       let endPage = currentBlogPage + halfTotalPagesToShow;
-
+  
       if (startPage < 1) {
-        endPage += Math.abs(startPage) + 1;
         startPage = 1;
+        endPage = Math.min(totalPages, totalPagesToShow);
       }
-
+  
       if (endPage > totalPages) {
-        startPage -= endPage - totalPages;
         endPage = totalPages;
+        startPage = Math.max(1, totalPages - totalPagesToShow + 1);
       }
-
+  
       const visibleButtons = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
       setVisiblePageButtons(visibleButtons);
     };
-
+  
     calculateVisiblePageButtons();
   }, [currentBlogPage, totalPages]);
 
   const handleCategoryChange = (event) => {
     setCategoryId(parseInt(event.target.value, 10));
-    setPage(1); // Reset page to 1 when category changes
+    setPage(1); 
   };
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
-      setPage(newPage);
+      setCurrentBlogPage(newPage);
     }
   };
 

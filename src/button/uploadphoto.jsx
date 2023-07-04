@@ -1,32 +1,34 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 const ImageUploadButton = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
+    console.log(file)
     setSelectedImage(file);
+    console.log(selectedImage)
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (selectedImage) {
       const formData = new FormData();
       formData.append('image', selectedImage);
-      const token =  localStorage.getItem("token")   
-      fetch('https://minpro-blog.purwadhikabootcamp.com/api/profile/single-uploaded', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        },
-        body: formData
-      })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Response:', data);
-        })
-        .catch(error => {
-          console.error('Error:', error);
+      console.log(formData)
+      const token = localStorage.getItem('token');
+      
+
+      try {
+        const response = await axios.post('https://minpro-blog.purwadhikabootcamp.com/api/profile/single-uploaded', formData, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          }
         });
+        console.log(response);
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
   };
 

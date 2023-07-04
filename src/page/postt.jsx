@@ -7,8 +7,7 @@ const Article = ({ title, image, author, content, category, id }) => {
   const token = localStorage.getItem("token")
 
   const handleLike = () => {
-    // Perform the POST request to the API
-    fetch('https://minpro-blog.purwadhikabootcamp.com/api/blog/like', {
+      fetch('https://minpro-blog.purwadhikabootcamp.com/api/blog/like', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -26,20 +25,17 @@ const Article = ({ title, image, author, content, category, id }) => {
   };
 
   const handleHate = () => {
-    // Perform the DELETE request to the API
     fetch('https://minpro-blog.purwadhikabootcamp.com/api/blog/unlike/2', {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify({ BlogId: {id} }) // Replace 'YOUR_BLOG_ID' with the actual value
+      body: JSON.stringify({ BlogId: {id} }) 
     })
       .then(response => response.json())
       .then(data => {
-        // Handle the response data if needed
         console.log(data);
-  
-      })
+    })
       .catch(error => {
         console.error('Error:', error);
       });

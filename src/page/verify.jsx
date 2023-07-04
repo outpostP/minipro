@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 const VerifyButton = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -18,24 +19,25 @@ const VerifyButton = () => {
   };
 
   const ReturnToSender = async () => {
-      const resi = window.location.pathname;
-      const verificationToken = resi.substring(resi.indexOf('/verification/') + '/verification/'.length);
-      localStorage.setItem('verificationToken', verificationToken);
+    const resi = window.location.pathname;
+    const verificationToken = resi.substring(resi.indexOf('/verification/') + '/verification/'.length);
+    localStorage.setItem('verificationToken', verificationToken);
+    console.log(verificationToken)
 
     try {
-      const response = await fetch('https://minpro-blog.purwadhikabootcamp.com/api/auth/verify', {
-        method: 'PATCH',
+      const response = await axios.patch('https://minpro-blog.purwadhikabootcamp.com/api/auth/verify', null, {
         headers: {
-          "Authorization": `Bearer ${verificationToken}`
-        }
+          Authorization: `Bearer ${verificationToken}`,
+        },
       });
+      console.log(response)
 
-      if (response.ok) {
+      if (response.status === 200) {
         setVerificationSent(true);
         setTimeout(() => {
           setVerificationSent(false);
-          window.location.href = '/'; 
-        }, 4000);
+          window.location.href = '/';
+        }, 3000);
       } else {
         setError('Verification failed. Please try again.');
       }
@@ -45,10 +47,7 @@ const VerifyButton = () => {
   };
 
   return (
-    <div
-      className="flex justify-center items-center h-screen"
-      style={componentStyle}
-    >
+    <div className="flex justify-center items-center h-screen" style={componentStyle}>
       <div>
         {verificationSent ? (
           <p>Verification sent, you'll be directed to the homepage.</p>
@@ -58,7 +57,7 @@ const VerifyButton = () => {
             onMouseEnter={handleHover}
             onMouseLeave={handleMouseLeave}
             onClick={ReturnToSender}
-            disabled={verificationSent} // Disable the button after verification is sent
+            disabled={verificationSent} 
           >
             VERIFY
           </button>

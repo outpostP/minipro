@@ -44,6 +44,7 @@ const LoginPage = () => {
       try{
         const res = await axios.post(`https://minpro-blog.purwadhikabootcamp.com/api/auth/login`,
         payload);
+        console.log(res)
         // console.log(res.data.isAccountExist);
         // console.log(res.data.token)
         localStorage.setItem('token', res.data.token)
@@ -51,9 +52,9 @@ const LoginPage = () => {
         dispatch(loginSuccess())
         dispatch(setUser(res.data.isAccountExist))
         
-        setTimeout(() => {
-          window.location.href = '/'
-        },0)
+        // setTimeout(() => {
+        //   window.location.href = '/'
+        // },0)
       } catch (err){
          console.log(err);
       } 

@@ -1,6 +1,6 @@
 import ProfileSidebar from '../profile/Sidebar'
 import { Outlet } from 'react-router-dom'
-// import UserInfo from '../page/profiletest'
+import UserInfo from '../page/profiletest'
 
 
 function UserLayout() {
@@ -11,9 +11,9 @@ function UserLayout() {
 
             <ProfileSidebar/>
        </div>
-       {/* <div className='w-1/4'>
+       <div className='w-1/4'>
         <UserInfo/>
-       </div> */}
+       </div>
        <div className='w-2/4 flex justify-center items-center'>
 
             <Outlet/>
