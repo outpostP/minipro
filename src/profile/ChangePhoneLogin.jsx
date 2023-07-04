@@ -9,26 +9,30 @@ const ChangePhoneForm = () => {
     newPhoneNumber: '',
   };
 
-  const url = window.location.hostname
-
+  
   const validationSchema = Yup.object({
     currentPhoneNumber: Yup.string()
-      .matches(/^\d{10}$/, 'Invalid phone number')
-      .required('Current phone number is required'),
+    .min(10, 'Please input valid min length')
+    .max(18, 'Please input valid max length')
+    .matches(/^\d+$/, 'Phone Number must contain only numbers')
+    .required('Phone Number is required'),
     newPhoneNumber: Yup.string()
-      .matches(/^\d{10}$/, 'Invalid phone number')
-      .required('New phone number is required'),
+    .min(10, 'Please input valid min length')
+    .max(18, 'Please input valid max length')
+    .matches(/^\d+$/, 'Phone Number must contain only numbers')
+    .required('Phone Number is required'),
   });
 
   const handleSubmit = (values) => {
     const { currentPhoneNumber, newPhoneNumber } = values;
 
+    const url = window.location.hostname
     const data = {
       currentPhoneNumber,
       newPhoneNumber,
       FE_URL: url,
     };
-
+    
     const token =  localStorage.getItem("token");
 
     const headers = {
@@ -39,13 +43,19 @@ const ChangePhoneForm = () => {
     axios
       .patch('https://minpro-blog.purwadhikabootcamp.com/api/auth/changePhone', data, { headers })
       .then((response) => {
+        console.log(response)
+        console.log(data)
         if (response.status === 200) {
          console.log('success 200')
         } else {
+          console.log(response)
+        console.log(data)
           console.log('lol')
         }
       })
       .catch((error) => {
+   
+        console.log(data)
         console.error('Error:', error);
       });
   };

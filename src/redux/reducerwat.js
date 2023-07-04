@@ -46,6 +46,9 @@ export const AuthReducer = createSlice({
             state.login = false;
             localStorage.removeItem("token")
             localStorage.removeItem("id")
+            setTimeout(() => {
+                window.location.href = '/'
+              },0)
         },
         keepLoginSuccess: (state) => {
             state.login = true;
@@ -72,3 +75,4 @@ export const keepLogin = () => {
 export const { loginSuccess, logoutSuccess, setUser, keepLoginSuccess } = AuthReducer.actions;
 
 export default AuthReducer.reducer;
+

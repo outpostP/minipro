@@ -1,41 +1,42 @@
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const Article = ({ title, image, author, content, category, id }) => {
-
   const login = useSelector((state) => state.AuthReducer.login);
- 
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
 
   const handleLike = () => {
-      fetch('https://minpro-blog.purwadhikabootcamp.com/api/blog/like', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify({ BlogId: {id} }) 
-    })
-      .then(response => response.json())
-      .then(data => {
-        // Handle the response data if needed
-        console.log(data);
-              })
+    axios
+      .post(
+        'https://minpro-blog.purwadhikabootcamp.com/api/blog/like',
+        { BlogId: id },
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        }
+      )
+      .then(response => {
+        console.log(response.data);
+   
+      })
       .catch(error => {
         console.error('Error:', error);
       });
   };
 
   const handleHate = () => {
-    fetch('https://minpro-blog.purwadhikabootcamp.com/api/blog/unlike/2', {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ BlogId: {id} }) 
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-    })
+    axios
+      .delete('https://minpro-blog.purwadhikabootcamp.com/api/blog/unlike/2', 
+      { BlogId: id },
+      {       
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+      .then(response => {
+        console.log(response.data);
+      })
       .catch(error => {
         console.error('Error:', error);
       });
@@ -73,5 +74,6 @@ const Article = ({ title, image, author, content, category, id }) => {
       )}
     </div>
   );
-}
+};
+
 export default Article;

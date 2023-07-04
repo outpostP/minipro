@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -10,6 +11,7 @@ const BlogComponent = () => {
   const [currentBlogPage, setCurrentBlogPage] = useState(1);
   const [visiblePageButtons, setVisiblePageButtons] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [sortOrder, setSortOrder] = useState('ASC');
   
   useEffect(() => {
     const fetchCategories = async () => {
@@ -32,11 +34,11 @@ const BlogComponent = () => {
         let url = '';
   
         if (categoryId === 0) {
-          url = `https://minpro-blog.purwadhikabootcamp.com/api/blog?search=${searchQuery}&page=${currentBlogPage}`;
+          url = `https://minpro-blog.purwadhikabootcamp.com/api/blog?sort=${sortOrder}&search=${searchQuery}&page=${currentBlogPage}`;
         } else if (categoryId === -1) {
-          url = `https://minpro-blog.purwadhikabootcamp.com/api/blog/pagFav?&search=${searchQuery}&page=${currentBlogPage}`;
+          url = `https://minpro-blog.purwadhikabootcamp.com/api/blog/pagFav?sort=${sortOrder}&search=${searchQuery}&page=${currentBlogPage}`;
         } else {
-          url = `https://minpro-blog.purwadhikabootcamp.com/api/blog/?id_cat=${categoryId}&search=${searchQuery}&page=${currentBlogPage}`;
+          url = `https://minpro-blog.purwadhikabootcamp.com/api/blog/?sort=${sortOrder}&id_cat=${categoryId}&search=${searchQuery}&page=${currentBlogPage}`;
         }
   
         const response = await fetch(url);
@@ -56,7 +58,7 @@ const BlogComponent = () => {
     };
   
     fetchData();
-  }, [categoryId, currentBlogPage, searchQuery]);
+  }, [categoryId, currentBlogPage, searchQuery,sortOrder]);
 
   useEffect(() => {
     const calculateVisiblePageButtons = () => {
@@ -97,31 +99,68 @@ const BlogComponent = () => {
     setSearchQuery(event.target.value);
   };
 
+  const toggleSortOrder = (event) => {
+    const selectedSortOrder = event.target.value;
+    setSortOrder(selectedSortOrder);
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
-        <div className='flex'>
-      <select
-        value={categoryId}
-        onChange={handleCategoryChange}
-        className="block w-64 px-4 py-2 border border-gray-300 rounded-md focus:outline-none mx-7"
-      >
-        <option value={0}>All Categories</option>
-        <option value={-1}>Popular Posts</option>
-        {categories.map((category) => (
-          <option key={category.id} value={category.id}>
-            {category.name}
-          </option>
-        ))}
-      </select>
+    <div className="flex justify-between">
+      <div className="flex">
+        <select
+          value={categoryId}
+          onChange={handleCategoryChange}
+          className="block w-64 px-4 py-2 border border-gray-300 rounded-md focus:outline-none mr-4"
+        >
+          <option value={0}>All Categories</option>
+          <option value={-1}>Popular Posts</option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
 
-      <input
-        type="text"
-        value={searchQuery}
-        onChange={handleSearch}
-        placeholder="Search by title"
-        className="block w-64 mt-4 px-4 py-2 border border-gray-300 rounded-md focus:outline-none"
-      />
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={handleSearch}
+          placeholder="Search by title"
+          className="block w-64 px-4 py-2 border border-gray-300 rounded-md focus:outline-none"
+        />
       </div>
+
+      <div className="flex items-center">
+        <label htmlFor="ascRadio" className="mr-2 font-bold">
+          Sort Order:
+        </label>
+        <div className="flex items-center">
+          <label htmlFor="ascRadio" className="mr-2">
+            <input
+              type="radio"
+              id="ascRadio"
+              value="ASC"
+              checked={sortOrder === 'ASC'}
+              onChange={toggleSortOrder}
+              className="mr-1 text-indigo-600"
+            />
+            Ascending
+          </label>
+          <label htmlFor="descRadio" className="ml-2">
+            <input
+              type="radio"
+              id="descRadio"
+              value="DESC"
+              checked={sortOrder === 'DESC'}
+              onChange={toggleSortOrder}
+              className="mr-1 text-indigo-600"
+            />
+            Descending
+          </label>
+        </div>
+      </div>
+    </div>
 
       <div className="mt-8">
         {blogPosts.map((post) => (

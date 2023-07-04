@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
 import CarouselCard from '../cards/carouselcards';
-import Carousel, {  autoplayPlugin } from '@brainhubeu/react-carousel';
+import Carousel, {   } from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 import axios from 'axios'
 import { Link } from 'react-router-dom';

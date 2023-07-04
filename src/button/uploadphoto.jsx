@@ -7,18 +7,18 @@ const ImageUploadButton = () => {
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
     console.log(file)
-    setSelectedImage(file);
+    if (file) {
+      setSelectedImage(file);
+    }
     console.log(selectedImage)
   };
 
   const handleUpload = async () => {
     if (selectedImage) {
       const formData = new FormData();
-      formData.append('image', selectedImage);
+      formData.append('file', selectedImage);
       console.log(formData)
       const token = localStorage.getItem('token');
-      
-
       try {
         const response = await axios.post('https://minpro-blog.purwadhikabootcamp.com/api/profile/single-uploaded', formData, {
           headers: {

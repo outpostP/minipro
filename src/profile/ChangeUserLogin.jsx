@@ -16,11 +16,7 @@ const ChangeUsernameForm = () => {
 
   const handleSubmit = (values) => {
     const { currentUsername, newUsername } = values;
-  
-
-    // Prepare the data to be sent
     const url = window.location.hostname
-
     const data = {
       currentUsername,
       newUsername,

@@ -26,7 +26,7 @@ import ForgetToRemember from "./page/forgettoremember";
 import ChangeUsernameForm from "./profile/ChangeUserLogin";
 import ChangeEmailForm from "./profile/ChangeEmailLogin";
 import ChangePhoneForm from "./profile/ChangePhoneLogin";
-import LikedPost from "./profile/LikeGobl";
+import PostLiked from "./profile/PostLiked";
 
 
 const router = createBrowserRouter(
@@ -48,7 +48,7 @@ const router = createBrowserRouter(
         <Route path="changeusername" element={<ChangeUsernameForm/>}/>
         <Route path="changeemail" element={<ChangeEmailForm/>}/>
         <Route path="changephone" element={<ChangePhoneForm/>}/>
-        <Route path="likedpost" element={<LikedPost/>} />
+        <Route path="likedpost" element={<PostLiked/>} />
         <Route path="reset-password" element={<PasswordResetForm/>} />
       </Route> 
       <Route path="*" element={<NotFoundPage/>}/>

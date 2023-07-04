@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
+import { Formik, Form, Field, ErrorMessage,  } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-
+import { useAuthRedirect } from "../whatev/useAuthRedirect";
 
 const CreateArticle = () => {
+	useAuthRedirect('/');
 	const [categories, setCategories] = useState([]);
 
-
+	
 	useEffect(() => {
 		const fetchCategories = async () => {
 			try {
@@ -37,7 +38,7 @@ const CreateArticle = () => {
 		content: Yup.string().required("Content is required"),
 		country: Yup.string().required("Country is required"),
 		CategoryId: Yup.string().required("Category ID is required"),
-		keywords: Yup.array().min(1, "At least one keyword is required"),
+		keywords: Yup.string().required("At least one keyword is required"),
 		file: Yup.mixed()
 			.required("File is required")
 			.test("fileType", "Only image files are allowed", (value) => {
@@ -56,12 +57,11 @@ const CreateArticle = () => {
 			content: values.content,
 			country: values.country,
 			CategoryId: values.CategoryId,
-			keywords: values.keywords.join(" "),
+			keywords: values.keywords
 		};
 
 		formData.append("data", JSON.stringify(data));
 		formData.append("file", values.file);
-    console.log(formData)
 
 		try {
 			const token = localStorage.getItem("token");
@@ -76,16 +76,18 @@ const CreateArticle = () => {
 				formData,
 				{ headers }
 			);
-      console.log(response)
 
+			
+			resetForm();
 		} catch (error) {
-			console.log(error)
+			
+			console.error("Error posting blog data", error);
 		}
 	};
 
 	return (
 		<div className="mx-auto flex justify-center items-center min-h-screen">
-		
+	
 
 			<Formik
 				initialValues={initialValues}
@@ -142,32 +144,25 @@ const CreateArticle = () => {
 						</div>
 
 						<div className="mb-4">
+              <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+                Country
+              </label>
+              <Field
+                type="text"
+                id="country"
+                name="country"
+                className="mt-1 px-3 py-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                placeholder="Enter the country"
+              />
+              <ErrorMessage name="country" component="div" className="text-red-500" />
+            </div>
+
+						<div className="mb-4">
 							<label
 								htmlFor="country"
 								className="block text-gray-700 text-sm font-bold mb-2"
 							>
-								Country
-							</label>
-							<Field
-								as="textarea"
-								name="country"
-								id="country"
-								className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-								rows="4"
-							/>
-							<ErrorMessage
-								name="country"
-								component="p"
-								className="text-red-500 text-xs italic"
-							/>
-						</div>
-
-						<div className="mb-4">
-							<label
-								htmlFor="category"
-								className="block text-gray-700 text-sm font-bold mb-2"
-							>
-								Category
+								Kategori
 							</label>
 							<Field
 								as="select"
@@ -192,53 +187,18 @@ const CreateArticle = () => {
 						</div>
 
 						<div className="mb-4">
-							<label
-								htmlFor="keywords"
-								className="block text-gray-700 text-sm font-bold mb-2"
-							>
-								Keywords
-							</label>
-							<FieldArray name="keywords">
-								{({ push, remove }) => (
-									<div>
-										{values.keywords.map((_, index) => (
-											<div key={index} className="flex items-center">
-												<Field
-													type="text"
-													name={`keywords[${index}]`}
-													className="hidden"
-												/>
-												<Field
-													type="text"
-													name={`keywords[${index}]`}
-													className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-												/>
-												<button
-													type="button"
-													onClick={() => remove(index)}
-													className="ml-2 text-red-600"
-												>
-													Remove
-												</button>
-											</div>
-										))}
-
-										<button
-											type="button"
-											onClick={() => push("")}
-											className="mt-2 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 rounded focus:outline-none focus:shadow-outline"
-										>
-											Add Keyword
-										</button>
-									</div>
-								)}
-							</FieldArray>
-							<ErrorMessage
-								name="keywords"
-								component="p"
-								className="text-red-500 text-xs italic"
-							/>
-						</div>
+              <label htmlFor="keywords" className="block text-sm font-medium text-gray-700">
+                Keywords
+              </label>
+              <Field
+                type="text"
+                id="keywords"
+                name="keywords"
+                className="mt-1 px-3 py-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                placeholder="Enter keywords separated by commas"
+              />
+              <ErrorMessage name="keywords" component="div" className="text-red-500" />
+            </div>
 
 						<div className="mb-4">
 							<label

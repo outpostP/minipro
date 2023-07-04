@@ -41,7 +41,7 @@ const PasswordResetForm = () => {
         },
       });
   
-      console.log(response);
+
       if (response.status === 200) {
         resetForm();
         alert('Password reset successful!');

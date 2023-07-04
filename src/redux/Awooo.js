@@ -5,9 +5,10 @@ import { keepLogin } from './reducerwat';
 
 const Awoo = ({ children }) => {
     const dispatch = useDispatch();
-    const { user } = useSelector((state) => state.AuthReducer);
+  
     
     useEffect(() => {
+        const user = localStorage.getItem('id')
         dispatch(keepLogin());
         console.log(user)
     }, [dispatch]);

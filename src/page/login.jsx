@@ -3,13 +3,14 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/reducerwat';
-
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { loginSuccess } from '../redux/reducerwat';
 
 
 const LoginPage = () => {
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -52,9 +53,9 @@ const LoginPage = () => {
         dispatch(loginSuccess())
         dispatch(setUser(res.data.isAccountExist))
         
-        // setTimeout(() => {
-        //   window.location.href = '/'
-        // },0)
+        setTimeout(() => {
+          window.location.href = '/'
+        },0)
       } catch (err){
          console.log(err);
       } 
@@ -63,7 +64,9 @@ const LoginPage = () => {
     validateOnBlur: true, 
   });
 
-
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -91,32 +94,40 @@ const LoginPage = () => {
                 <label htmlFor="password" className="block mb-2 text-sm font-medium">
                   Password
                 </label>
-                <input
-                  type="password"
-                  id="password"
-                  className="w-full px-3 py-2 border border-gray-300 rounded"
-                  placeholder="Enter your password"
-                  {...formik.getFieldProps('password')}
-                />
+                <div className="relative">
+                  <input
+                    type={showPassword ? 'text' : 'password'} // Use state to toggle input type
+                    id="password"
+                    className="w-full px-3 py-2 border border-gray-300 rounded"
+                    placeholder="Enter your password"
+                    {...formik.getFieldProps('password')}
+                  />
+                  <button
+                    type="button"
+                    className="absolute top-2 right-2 text-gray-500"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {showPassword ? 'Hide' : 'Show'}
+                  </button>
+                </div>
                 {formik.touched.password && formik.errors.password && (
                   <div className="text-red-500 text-sm mt-1">{formik.errors.password}</div>
                 )}
               </div>
-              <Link to='/forget'>
-              <div className="mb-4">
-                <div className="text-sm text-blue-500 hover:text-blue-700">
-                  Forgot your password?
+              <Link to="/forget">
+                <div className="mb-4">
+                  <div className="text-sm text-blue-500 hover:text-blue-700">
+                    Forgot your password?
+                  </div>
                 </div>
-              </div>
               </Link>
               <button
-        type="submit"
-        className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-       
-      >
-        Log in
-      </button>
-      </form>
+                type="submit"
+                className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+              >
+                Log in
+              </button>
+            </form>
           </div>
         </div>
       </div>
