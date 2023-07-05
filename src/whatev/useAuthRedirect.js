@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+
 import { useNavigate } from 'react-router-dom';
 
 export const useAuthRedirect = (redirectPath) => {
-    const login = useSelector((state) => state.AuthReducer.login);
+    const token = localStorage.getItem('token')
     const navigate = useNavigate();
 
   useEffect(() => {
-    if (!login) {
+    if (!token) {
       alert('Please log in to access this page.');
       navigate(redirectPath);
     }
-  }, [login, navigate, redirectPath]);
+  }, [token, navigate, redirectPath]);
 };

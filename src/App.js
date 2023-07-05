@@ -27,6 +27,7 @@ import ChangeUsernameForm from "./profile/ChangeUserLogin";
 import ChangeEmailForm from "./profile/ChangeEmailLogin";
 import ChangePhoneForm from "./profile/ChangePhoneLogin";
 import PostLiked from "./profile/PostLiked";
+import UserPasswordResetForm from "./profile/ChangeUserPassword";
 
 
 const router = createBrowserRouter(
@@ -49,7 +50,7 @@ const router = createBrowserRouter(
         <Route path="changeemail" element={<ChangeEmailForm/>}/>
         <Route path="changephone" element={<ChangePhoneForm/>}/>
         <Route path="likedpost" element={<PostLiked/>} />
-        <Route path="reset-password" element={<PasswordResetForm/>} />
+        <Route path="reset-password" element={<UserPasswordResetForm/>} />
       </Route> 
       <Route path="*" element={<NotFoundPage/>}/>
     </Route>

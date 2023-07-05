@@ -6,13 +6,11 @@ import axios from 'axios';
 
 const PasswordResetForm = () => {
   const initialValues = {
-    oldPassword: '',
     newPassword: '',
     confirmNewPassword: '',
   };
 
   const validationSchema = Yup.object().shape({
-    oldPassword: Yup.string().required('Old password is required'),
     newPassword: Yup.string()
       .required('New password is required')
       .min(6, 'Password must be at least 6 characters')
@@ -28,7 +26,7 @@ const PasswordResetForm = () => {
   const handleSubmit = async (values, { resetForm }) => {
     try {
       const { newPassword, confirmNewPassword } = values;
-      const token =  localStorage.getItem("token")                    
+      const token =  localStorage.getItem("verificationToken")                    
   
       const requestBody = {
         password: newPassword,
@@ -59,24 +57,8 @@ const PasswordResetForm = () => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      <Form className="max-w-md mx-auto">
-        <div className="mb-4">
-          <label htmlFor="oldPassword" className="block mb-2 font-medium">
-            Old Password
-          </label>
-          <Field
-            type="password"
-            id="oldPassword"
-            name="oldPassword"
-            className="w-full p-2 border rounded"
-          />
-          <ErrorMessage
-            name="oldPassword"
-            component="div"
-            className="text-red-500"
-          />
-        </div>
-
+      <Form className="max-w-md mx-auto mt-5">
+       
         <div className="mb-4">
           <label htmlFor="newPassword" className="block mb-2 font-medium">
             New Password

@@ -32,33 +32,40 @@ const BlogComponent = () => {
     const fetchData = async () => {
       try {
         let url = '';
-  
+        let filteredPosts = [];
+
         if (categoryId === 0) {
-          url = `https://minpro-blog.purwadhikabootcamp.com/api/blog?sort=${sortOrder}&search=${searchQuery}&page=${currentBlogPage}`;
+          if (currentBlogPage === 1) {
+            url = `https://minpro-blog.purwadhikabootcamp.com/api/blog?sort=${sortOrder}&search=${searchQuery}`;
+          } else {
+            url = `https://minpro-blog.purwadhikabootcamp.com/api/blog?sort=${sortOrder}&search=${searchQuery}&page=${currentBlogPage}`;
+          }
         } else if (categoryId === -1) {
           url = `https://minpro-blog.purwadhikabootcamp.com/api/blog/pagFav?sort=${sortOrder}&search=${searchQuery}&page=${currentBlogPage}`;
         } else {
           url = `https://minpro-blog.purwadhikabootcamp.com/api/blog/?sort=${sortOrder}&id_cat=${categoryId}&search=${searchQuery}&page=${currentBlogPage}`;
         }
-  
+
         const response = await fetch(url);
         const data = await response.json();
-  
-        let filteredPosts = data.result;
-        if (searchQuery !== '') {
-          filteredPosts = filteredPosts.filter((post) =>
+
+        if (currentBlogPage === 1) {
+          filteredPosts = data.result;
+        } else {
+          filteredPosts = data.result.filter((post) =>
             post.title.toLowerCase().includes(searchQuery.toLowerCase())
           );
         }
+
         setBlogPosts(filteredPosts);
         setTotalPages(data.page);
       } catch (error) {
         console.log(error);
       }
     };
-  
+
     fetchData();
-  }, [categoryId, currentBlogPage, searchQuery,sortOrder]);
+  }, [categoryId, currentBlogPage, searchQuery, sortOrder]);
 
   useEffect(() => {
     const calculateVisiblePageButtons = () => {
@@ -66,27 +73,30 @@ const BlogComponent = () => {
       const halfTotalPagesToShow = Math.floor(totalPagesToShow / 2);
       let startPage = currentBlogPage - halfTotalPagesToShow;
       let endPage = currentBlogPage + halfTotalPagesToShow;
-  
+
       if (startPage < 1) {
         startPage = 1;
         endPage = Math.min(totalPages, totalPagesToShow);
       }
-  
+
       if (endPage > totalPages) {
         endPage = totalPages;
         startPage = Math.max(1, totalPages - totalPagesToShow + 1);
       }
-  
-      const visibleButtons = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+
+      const visibleButtons = Array.from(
+        { length: endPage - startPage + 1 },
+        (_, i) => startPage + i
+      );
       setVisiblePageButtons(visibleButtons);
     };
-  
+
     calculateVisiblePageButtons();
   }, [currentBlogPage, totalPages]);
 
   const handleCategoryChange = (event) => {
     setCategoryId(parseInt(event.target.value, 10));
-    setPage(1); 
+    setCurrentBlogPage(1);
   };
 
   const handlePageChange = (newPage) => {

@@ -5,31 +5,31 @@ import axios from 'axios';
 
 const ChangePhoneForm = () => {
   const initialValues = {
-    currentPhoneNumber: '',
-    newPhoneNumber: '',
+    currentPhone: '',
+    newPhone: '',
   };
 
   
   const validationSchema = Yup.object({
-    currentPhoneNumber: Yup.string()
+    currentPhone: Yup.string()
     .min(10, 'Please input valid min length')
     .max(18, 'Please input valid max length')
     .matches(/^\d+$/, 'Phone Number must contain only numbers')
     .required('Phone Number is required'),
-    newPhoneNumber: Yup.string()
+    newPhone: Yup.string()
     .min(10, 'Please input valid min length')
     .max(18, 'Please input valid max length')
     .matches(/^\d+$/, 'Phone Number must contain only numbers')
     .required('Phone Number is required'),
   });
-
+  
   const handleSubmit = (values) => {
-    const { currentPhoneNumber, newPhoneNumber } = values;
-
     const url = window.location.hostname
+    console.log(url)
+    const { currentPhone, newPhone } = values;
     const data = {
-      currentPhoneNumber,
-      newPhoneNumber,
+      currentPhone,
+      newPhone,
       FE_URL: url,
     };
     
@@ -68,24 +68,24 @@ const ChangePhoneForm = () => {
     >
       <Form className="max-w-sm mx-auto">
         <div className="mb-4">
-          <label htmlFor="currentPhoneNumber" className="block">Current Phone Number:</label>
+          <label htmlFor="currentPhone" className="block">Current Phone Number:</label>
           <Field
             type="text"
-            id="currentPhoneNumber"
-            name="currentPhoneNumber"
+            id="currentPhone"
+            name="currentPhone"
             className="border border-gray-300 rounded-md p-2 w-full"
           />
-          <ErrorMessage name="currentPhoneNumber" component="div" className="text-red-500 mt-1" />
+          <ErrorMessage name="currentPhone" component="div" className="text-red-500 mt-1" />
         </div>
         <div className="mb-4">
-          <label htmlFor="newPhoneNumber" className="block">New Phone Number:</label>
+          <label htmlFor="newPhone" className="block">New Phone Number:</label>
           <Field
             type="text"
-            id="newPhoneNumber"
-            name="newPhoneNumber"
+            id="newPhone"
+            name="newPhone"
             className="border border-gray-300 rounded-md p-2 w-full"
           />
-          <ErrorMessage name="newPhoneNumber" component="div" className="text-red-500 mt-1" />
+          <ErrorMessage name="newPhone" component="div" className="text-red-500 mt-1" />
         </div>
         <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
       </Form>

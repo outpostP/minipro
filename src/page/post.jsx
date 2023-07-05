@@ -21,7 +21,7 @@ function Posts() {
 export default Posts
 
 export const postLoaders = async () => {
-  const res = await fetch('https://minpro-blog.purwadhikabootcamp.com/api/blog/')
+  const res = await fetch('https://minpro-blog.purwadhikabootcamp.com/api/blog/pagFav')
 
   return res.json()
 }
