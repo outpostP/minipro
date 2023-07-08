@@ -47,9 +47,13 @@ const Article = ({ title, image, author, content, category, id }) => {
       <h1 className="text-2xl font-bold p-4 flex justify-between">
         {title}<span>{category}</span>
       </h1>
-      <div>
-        <img src={`https://minpro-blog.purwadhikabootcamp.com/${image}`} alt="Article" className="h-200px w-300px" />
-      </div>
+      <div className="w-200px h-300px">
+  <img
+    src={`https://minpro-blog.purwadhikabootcamp.com/${image}`}
+    alt="Article"
+    className="w-full h-full object-cover"
+  />
+</div>
       <div className="p-4">
         <p className="text-gray-600">Author: {author}</p>
       </div>
