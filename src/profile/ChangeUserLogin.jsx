@@ -34,7 +34,9 @@ const ChangeUsernameForm = () => {
       .then((response) => {
         console.log(response)
         if (response.status === 200) {
-         console.log('success 200')
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         } else {
           console.log('lmao')
         }

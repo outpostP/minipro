@@ -36,6 +36,9 @@ const ChangeEmailForm = () => {
       .then((response) => {
         console.log(response)
            if (response.status === 200) {
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
           } else {
             console.log(response.status)
          }
@@ -72,7 +75,7 @@ const ChangeEmailForm = () => {
           />
           <ErrorMessage name="newEmail" component="div" className="text-red-500 mt-1" />
         </div>
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded" >Submit</button>
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
       </Form>
     </Formik>
   );

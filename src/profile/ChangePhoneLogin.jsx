@@ -46,7 +46,9 @@ const ChangePhoneForm = () => {
         console.log(response)
         console.log(data)
         if (response.status === 200) {
-         console.log('success 200')
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         } else {
           console.log(response)
         console.log(data)

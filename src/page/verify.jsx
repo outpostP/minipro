@@ -37,7 +37,7 @@ const VerifyButton = () => {
         setTimeout(() => {
           setVerificationSent(false);
           window.location.href = '/';
-        }, 3000);
+        }, 2000);
       } else {
         setError('Verification failed. Please try again.');
       }
