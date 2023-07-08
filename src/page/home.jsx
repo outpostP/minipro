@@ -11,7 +11,6 @@ export default function Home() {
       <div className="w-2/5">
       <CarouselReal />
       </div>
-      {/* <Categories /> */}
     </div>
       <ArticleList/>
       </>

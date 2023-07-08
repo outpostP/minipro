@@ -20,14 +20,14 @@ const VerifyButton = () => {
 
   const ReturnToSender = async () => {
     const resi = window.location.pathname;
-    const verificationToken = resi.substring(resi.indexOf('/verification/') + '/verification/'.length);
-    localStorage.setItem('verificationToken', verificationToken);
-    console.log(verificationToken)
+    const token = resi.substring(resi.indexOf('/verification/') + '/verification/'.length);
+    localStorage.setItem('verificationToken', token);
+
 
     try {
       const response = await axios.patch('https://minpro-blog.purwadhikabootcamp.com/api/auth/verify', null, {
         headers: {
-          Authorization: `Bearer ${verificationToken}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       console.log(response)
