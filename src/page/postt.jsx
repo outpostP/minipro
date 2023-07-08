@@ -47,11 +47,12 @@ const Article = ({ title, image, author, content, category, id }) => {
       <h1 className="text-2xl font-bold p-4 flex justify-between">
         {title}<span>{category}</span>
       </h1>
-      <div className="w-200px h-300px">
+      <div className="w-200 h-300">
   <img
     src={`https://minpro-blog.purwadhikabootcamp.com/${image}`}
     alt="Article"
-    className="w-full h-full object-cover"
+    className="block object-cover w-full h-full"
+    style={{ maxWidth: "none" }}
   />
 </div>
       <div className="p-4">

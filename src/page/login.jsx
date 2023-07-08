@@ -11,6 +11,7 @@ import { loginSuccess } from '../redux/reducerwat';
 const LoginPage = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
+  const [message, setMessage] = useState('');
 
   const formik = useFormik({
     initialValues: {
@@ -57,7 +58,7 @@ const LoginPage = () => {
           window.location.href = '/'
         },0)
       } catch (err){
-         console.log(err);
+         setMessage(err.response.data);
       } 
     },
     validateOnChange: true, 
@@ -127,6 +128,11 @@ const LoginPage = () => {
               >
                 Log in
               </button>
+              {message && (
+        <div className="text-green-500 my-4">
+          {message}
+        </div>
+      )}
             </form>
           </div>
         </div>

@@ -73,7 +73,7 @@ const Register = () => {
       if (error.response && error.response.data) {
         setErrors(error.response.data.errors);
         console.log(error)
-        setMessage('Server returned validation errors');
+        setMessage(error.response.data);
       } else {
         setMessage('An error occurred. Please try again later.');
       }
