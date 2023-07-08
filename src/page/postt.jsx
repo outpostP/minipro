@@ -48,7 +48,7 @@ const Article = ({ title, image, author, content, category, id }) => {
         {title}<span>{category}</span>
       </h1>
       <div>
-        <img src={`https://minpro-blog.purwadhikabootcamp.com/${image}`} alt="Article" className="h-200px w300px" />
+        <img src={`https://minpro-blog.purwadhikabootcamp.com/${image}`} alt="Article" className="h-200px w-300px" />
       </div>
       <div className="p-4">
         <p className="text-gray-600">Author: {author}</p>
