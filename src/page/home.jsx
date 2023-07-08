@@ -1,4 +1,4 @@
-import CarouselReal from "../carousel/carousel"
+// import CarouselReal from "../carousel/carousel"
 
 import ArticleList from "../content/categoriestest"
 
@@ -6,7 +6,7 @@ import ArticleList from "../content/categoriestest"
 export default function Home() {
   return (
     <div>
-      <CarouselReal />
+      {/* <CarouselReal /> */}
       {/* <Categories /> */}
       <ArticleList/>
     </div>
