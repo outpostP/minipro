@@ -26,7 +26,11 @@ const PasswordResetForm = () => {
   const handleSubmit = async (values, { resetForm }) => {
     try {
       const { newPassword, confirmNewPassword } = values;
-      const token =  localStorage.getItem("verificationToken")                    
+      const resi = window.location.pathname;
+    const token = resi.substring(resi.indexOf('/verification/') + '/verification/'.length);
+    localStorage.removeItem()
+    localStorage.setItem('verificationToken', token);
+                    
   
       const requestBody = {
         password: newPassword,
